@@ -19,6 +19,6 @@ def repeat_upsample(rgb_array, k=1, l=1, err=[]):
 
 
 def render(env, scale=3):
-    rgb = env.render('rgb_array')
+    rgb = env.env.render('rgb_array')
     upscaled = repeat_upsample(rgb, scale, scale)
     viewer.imshow(upscaled)
