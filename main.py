@@ -23,7 +23,7 @@ print("Action Meaning: ", env.env.unwrapped.get_action_meanings())
 agent.model.summary()
 ep_reward = []
 
-training_epochs = 100000
+training_epochs = 500000
 frames_elapsed = 0
 start = time.time()
 
@@ -37,6 +37,8 @@ for i in range(training_epochs):
     while not done:
         action = agent.get_action(state, training=True)
         next_state, reward, done, life_lost = env.step(action)
+
+
         total_reward += reward
         reward = agent.process_reward(reward)
         next_state = agent.process_state(next_state)
@@ -55,7 +57,7 @@ for i in range(training_epochs):
 
         if done:
             print(f"Episode {i} finished \t Reward {total_reward} \t Loss {total_loss} \t Frames {frames_elapsed} \t Time Elapsed {time.time()-start}")
-            log.write(f"{i}, {agent.eps}, {total_reward}, {total_loss}, {frames_elapsed}\n")
+            log.write(f"{i}, {total_reward}, {total_loss}, {frames_elapsed}\n")
             log.flush()
             ep_reward.append(total_reward)
 
