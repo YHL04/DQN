@@ -41,5 +41,5 @@ def save_frames_as_gif(frames, filename="results", scale=72.0):
         patch.set_data(frames[i])
 
     anim = animation.FuncAnimation(plt.gcf(), animate, frames = len(frames), interval=50)
-    anim.save(f"test_gifs/{filename}.gif", writer='imagemagick', fps=60)
+    anim.save(f"test_gifs/{filename}.gif", writer='imagemagick', fps=30)
 
