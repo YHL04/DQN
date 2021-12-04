@@ -42,7 +42,7 @@ class Agent:
         self.cap = 0
 
 
-    def get_action(self, state, training):
+    def get_action(self, state):
         state = np.expand_dims(state, axis=-1)
         self.state.append(state)
 
@@ -109,6 +109,20 @@ class Agent:
     def load(self, name, i):
         path = f"saves/{name}/episode_{i}/"
         self.model.load_weights(path + "model.h5")
+
+    def load_best(self, name):
+        max_i = 0
+        assert len(os.listdir(f"saves/{name}")) != 0
+        for file in os.listdir(f"saves/{name}"):
+            i = int(file.split("_")[-1])
+            if i > max_i:
+                max_i = i
+
+        print(max_i)
+
+        path = f"saves/{name}/episode_{max_i}/"
+        self.model.load_weights(path + "model.h5")
+
 
     def save(self, name, i):
         file = f"saves/{name}/"

@@ -1,5 +1,8 @@
 import numpy as np
 from gym.envs.classic_control import rendering
+from matplotlib import animation
+import matplotlib.pyplot as plt
+
 
 viewer = rendering.SimpleImageViewer()
 
@@ -22,3 +25,21 @@ def render(env, scale=3):
     rgb = env.env.render('rgb_array')
     upscaled = repeat_upsample(rgb, scale, scale)
     viewer.imshow(upscaled)
+    return upscaled
+
+
+def save_frames_as_gif(frames, filename="results", scale=72.0):
+    # https://gist.github.com/botforge/64cbb71780e6208172bbf03cd9293553
+
+    # Had to scale it because I didn't have enough free memory
+    plt.figure(figsize=(frames[0].shape[1] / scale, frames[0].shape[0] / scale), dpi=72)
+
+    patch = plt.imshow(frames[0])
+    plt.axis('off')
+
+    def animate(i):
+        patch.set_data(frames[i])
+
+    anim = animation.FuncAnimation(plt.gcf(), animate, frames = len(frames), interval=50)
+    anim.save(f"test_gifs/{filename}.gif", writer='imagemagick', fps=60)
+

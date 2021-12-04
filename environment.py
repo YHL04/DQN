@@ -1,21 +1,31 @@
 import gym
+import random
 
 
 class Environment:
     '''
     DeepMind sets terminal as true if life is lost to boost DQN performance
     '''
-    def __init__(self, env_name, auto_start=True):
+    def __init__(self, env_name, auto_start=True, training=True, no_op_max=50):
         self.env = gym.make(env_name)
         self.last_lives = 0
 
         self.auto_start = auto_start
         self.fire = False
 
+        self.training = training
+        self.no_op_max = no_op_max
+
     def reset(self):
         if self.auto_start:
             self.fire = True
-        return self.env.reset()
+        frame = self.env.reset()
+
+        if not self.training:
+            for i in range(random.randint(1, self.no_op_max)):
+                frame, _, _, _ = self.env.step(1)
+
+        return frame
 
     def step(self, action):
         if self.fire:

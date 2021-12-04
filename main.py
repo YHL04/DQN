@@ -9,7 +9,7 @@ from environment import Environment
 env_name = "BreakoutDeterministic-v4"
 log = open(f'logs/{env_name}.txt', 'w')
 
-env = Environment(env_name)
+env = Environment(env_name, training=True)
 
 state_space = env.env.observation_space.shape
 action_space = env.env.action_space.n
@@ -35,7 +35,7 @@ for i in range(training_epochs):
     total_loss = 0.
 
     while not done:
-        action = agent.get_action(state, training=True)
+        action = agent.get_action(state)
         next_state, reward, done, life_lost = env.step(action)
 
 
