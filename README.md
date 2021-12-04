@@ -1,5 +1,7 @@
 # DQN
 
+![Sample Gif](https://github.com/YHL04/DQN/blob/master/test_gifs/results.gif "GIF")
+
 Dueling Double DQN with e-greedy replaced with Noisy Nets:
 
 ![alt text](https://github.com/YHL04/DQN/blob/master/60hour_dueling_noisy_dqn.png "Plot")
